@@ -1,0 +1,45 @@
+stages:
+  - test
+  - build
+  - deploy
+
+execute:test:
+  image: python:latest
+  stage: test
+  tags:
+    - docker
+  script: 
+    - python test.py
+
+
+build:image:
+  stage: build
+  tags:
+    - ssh
+  tags:
+    - ssh
+  services:
+    - name: docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  script:
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+
+deploy:
+  stage: deploy
+  tags:
+    - ssh
+  services:
+    - name: docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+    DOCKER_IMG_URL: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$IMAGE_TAG
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  script:
+    - docker run -d --name hello_hapi --rm $DOCKER_IMG_URL
