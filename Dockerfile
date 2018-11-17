@@ -15,6 +15,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /usr/src/app
 
-EXPOSE 80
-# For some other command
-# CMD ["python", "app.py"]
+EXPOSE 5000
+
+ENTRYPOINT [ "python" ]
+
+CMD [ "app.py" ]
