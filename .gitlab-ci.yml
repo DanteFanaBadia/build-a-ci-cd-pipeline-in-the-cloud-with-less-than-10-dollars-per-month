@@ -42,4 +42,5 @@ deploy:
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
+    - echo $DOCKER_IMG_URL
     - docker run -d --name hello_hapi --rm $DOCKER_IMG_URL
