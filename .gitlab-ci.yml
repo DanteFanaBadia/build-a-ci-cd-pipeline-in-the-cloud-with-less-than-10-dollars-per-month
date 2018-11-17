@@ -38,9 +38,9 @@ deploy:
   variables:
     DOCKER_DRIVER: overlay2
     IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
-    DOCKER_IMG_URL: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$IMAGE_TAG
+    DOCKER_IMG_URL: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
-    - echo $DOCKER_IMG_URL
-    - docker run -d --name hello_hapi --rm $DOCKER_IMG_URL
+    - echo "$DOCKER_IMG_URL:$IMAGE_TAG"
+    - docker run -d --name hello_hapi --rm "$DOCKER_IMG_URL:$IMAGE_TAG"
