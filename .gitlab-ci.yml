@@ -41,7 +41,7 @@ deploy:
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
-    - echo "Deploy image $IMAGE_TAG"
+    - echo "Deploy image $IMAGE_TAG $CI_JOB_TOKEN"
     - docker rm -f $CI_PROJECT_NAME
     - docker run -d -p 5000:5000 --rm --name $CI_PROJECT_NAME $IMAGE_TAG docker run 
 
