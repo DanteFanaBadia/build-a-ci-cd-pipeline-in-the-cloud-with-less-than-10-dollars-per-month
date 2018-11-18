@@ -1,6 +1,6 @@
 # Build a CI/CD Pipeline in the Cloud with less than 10 dollars per month
 
-![Conferencia Barcamp](../pics/picture-1.jpg "Conferencia Barcamp")
+![Conferencia Barcamp](pics/picture-1.jpg "Conferencia Barcamp")
 > Foto por __Roberto Lluberes__ https://github.com/robertlluberes
 
 La desconferencia tiene la idea de mostrar proyecto básico con una configuración ci/cd de bajo costo mensual y pueda ser utilizado tanto para fines educativos como profesional.
